@@ -78,12 +78,28 @@ plot=sns.jointplot(x='Average Rating',y='Rating Count',data=movies_rating_count_
 # Plot 2 shows that there is more movies between 2- 4 with more reviews
 # Join plot shows there is only a subset of values with a higher ratingand considerable amount of ratings
 
+#Eliminating outliers
+rating_with_RatingCount = movies_merged_df.merge(movies_rating_count, left_on='title', right_on='title', how = 'left')
+#print(rating_with_RatingCount.head())
 #Eliminating data by stting a threshold
 #We can get the quantiles and standard dev by using describe
 
-pd.set_option('display.float_format', lambda x: '%.3f' % x)
-#print(movies_rating_count_average['Rating Count'].describe())
+
+#pd.set_option('display.float_format', lambda x: '%.3f' % x)
+#print(rating_with_RatingCount['Rating Count'].describe())
 
 #From the above we find that 50% of movies only have 18 reviews, where the max have 67K reviews
 #75% of movies have more than 200 reviews
 
+#Now we will set a threshold value andcreate a dataframe of entries above the threshold
+# We are going to include the top 25% of movies
+popularity_threshold = 1967
+popular_movies = rating_with_RatingCount[rating_with_RatingCount['Rating Count']>=popularity_threshold]
+#print(popular_movies.shape)
+
+# This has cleaned our data apparently
+
+#Now we create a Pivot table with users as indices and movies as columns 
+import os
+movie_features_df = popular_movies.pivot_table(index = 'title', columns='userId',values='rating').fillna(0)
+print(movie_features_df.head())
