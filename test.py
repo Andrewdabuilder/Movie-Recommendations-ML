@@ -102,4 +102,6 @@ popular_movies = rating_with_RatingCount[rating_with_RatingCount['Rating Count']
 #Now we create a Pivot table with users as indices and movies as columns 
 import os
 movie_features_df = popular_movies.pivot_table(index = 'title', columns='userId',values='rating').fillna(0)
-print(movie_features_df.head())
+#print(movie_features_df.head())
+# Movie feature df is a pivot table that we can pass to our model 
+
