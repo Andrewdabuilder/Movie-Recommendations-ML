@@ -15,8 +15,9 @@
 
 # Mono auto generated files
 mono_crash.*
-MRMLenv/
-MovieData/
+[Mm]RMLenv/
+[Mm]ovieData/
+
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
